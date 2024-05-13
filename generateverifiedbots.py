@@ -13,7 +13,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 def read_config():
     """Read and parse the configuration file."""
     config = configparser.ConfigParser()
-    config.read('categories.ini')
+    config.read('categories.ini') #change this to full path when running via systemd
     return config
 
 def get_weighted_category(config):
