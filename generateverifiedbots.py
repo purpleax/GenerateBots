@@ -21,21 +21,24 @@ def get_weighted_category(config):
     return random.choices(categories, weights)[0]  # Uses weighted selection.
 
 def run_simulation(category, config):
-    """Simulate traffic for a given category."""
     user_agent = config.get(category, 'user_agent')
     ip_address = config.get(category, 'ip_address')
+
+    # Read URLs from the configuration file
+    urls = config.get("urls", "url_list").split(",")
+    url = random.choice(urls)  # Select a random URL
 
     headers = {
         "Cache-Control": "no-cache",
         "User-Agent": user_agent,
         "X-Source-Ip": ip_address
     }
-    url = "https://www.fastlylab.com"  # Change to actual URL path as needed.
 
     response = requests.get(url, headers=headers, verify=False)
-    print(f"Request to {category}: {response.status_code} - {response.reason}")
+    print(f"Request to {category} at {url}: {response.status_code} - {response.reason}")
 
     time.sleep(random.randint(1, 10))
+
 
 def main():
     config = read_config()
